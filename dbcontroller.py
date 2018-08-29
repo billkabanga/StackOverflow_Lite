@@ -1,12 +1,20 @@
 import psycopg2
+import os
+from instance.config import TestingConfig
+
 
 
 
 class Dbcontroller(object):
     def __init__(self):
+        
+        if os.getenv("APP_SETTING") == TestingConfig:
+            dbname = "apptest_db"
+        else:
+            dbname = "StackOverflow-lite"
         try:
             self.connect = psycopg2.connect(
-                "dbname='StackOverflow-lite' user='postgres' host='localhost' password='focus2red' port='5432'"
+                dbname=dbname ,user='postgres', host='localhost', password='focus2red' ,port='5432'
             )
             self.connect.autocommit = True
             self.cursor = self.connect.cursor()
@@ -17,47 +25,42 @@ class Dbcontroller(object):
    
 
     def create_tables(self):
-        user_table = "CREATE TABLE IF NOT EXISTS users(id serial PRIMARY KEY, username varchar(50),\
+        user_table = "CREATE TABLE IF NOT EXISTS users(usrid serial PRIMARY KEY, username varchar(50),\
          email varchar(100), password varchar(20))"
-        questions_table = "CREATE TABLE IF NOT EXISTS questions(id serial PRIMARY KEY, question varchar(100),\
-         FOREIGN KEY(id) REFERENCES users(id))"
-        answer_table = "CREATE TABLE IF NOT EXISTS answers(id serial PRIMARY KEY, answer varchar(100),\
-         FOREIGN KEY(id) REFERENCES questions(id), FOREIGN KEY(id) REFERENCES users(id))"
+        questions_table = "CREATE TABLE IF NOT EXISTS questions(qnid serial PRIMARY KEY, question varchar(100),\
+         usrId integer, FOREIGN KEY(usrid) REFERENCES users(usrid))"
+        answer_table = "CREATE TABLE IF NOT EXISTS answers(ansid serial PRIMARY KEY, answer varchar(100),\
+         qnId integer, usrId integer)"
 
         self.cursor.execute(user_table)
         self.cursor.execute(questions_table)
         self.cursor.execute(answer_table)
 
+
+
     def post_data(self,query):
         self.cursor.execute(query)
-
-    def get_user(self,query):
-        self.cursor.execute(query)
-        user = self.cursor.fetchone()
-        return user
+        return True
     
-    def get_all_questions(self):
-        self.cursor.execute("SELECT * FROM questions")
-        questions = self.cursor.fetchall()
-        return questions
-
-    def get_all_answers(self):
-        self.cursor.execute("SELECT * FROM answers")
-        answers = self.cursor.fetchall()
-        return answers
-
-    def get_specific_question(self,id):
-        self.cursor.execute("SELECT * FROM questions id = '{}' ".format(id))
-        question = self.cursor.fetchone()
-        return question
-
-    def get_specific_answer_by_qnId(self, qnId):
-        self.cursor.execute("SELECT * FROM answers WHERE qnId = '{}'".format(qnId))
+    def delete_data(self,query):
+        self.cursor.execute(query)
+        return True
 
 
-    def update_record(self):
-        update_command = "UPDATE users SET   WHERE "
-        self.cursor.execute(update_command)
+    def get_data(self,query):
+        self.cursor.execute(query)
+        data = self.cursor.fetchone()
+        return data
+    
+    def get_data_by_id(self,query):
+        self.cursor.execute(query)
+        data =self.cursor.fetchone()
+        return data
+    
+    def get_all_data(self,query):
+        self.cursor.execute(query)
+        data = self.cursor.fetchall()
+        return data
 
     
 
