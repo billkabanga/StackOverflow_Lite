@@ -1,5 +1,5 @@
 from api import create_app
-from instance.config import DevelopmentConfig
+from config import DevelopmentConfig
 from dbcontroller import Dbcontroller
 
 app = create_app(DevelopmentConfig)

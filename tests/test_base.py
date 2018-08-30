@@ -2,7 +2,7 @@ import unittest
 import json
 from api import create_app
 from dbcontroller import Dbcontroller
-from instance.config import TestingConfig
+from config import TestingConfig
 
 class BaseTest(unittest.TestCase):
 
@@ -27,7 +27,9 @@ class BaseTest(unittest.TestCase):
             "ansid": "1",
             "answer": "Set of rules",
             "qnid": "1",
-            "usrid": "1"
+            "usrid": "1",
+            "authid": "2",
+            "comment": "accepted"
         }
         self.signup = {
             "username": "Ambayo James",
@@ -40,12 +42,10 @@ class BaseTest(unittest.TestCase):
         }
 
         self.question_add = {
-            "question": "What is c++?",
-            "usrId": "1"
+            "question": "What is c++?"
         }
         self.another_question = {
-            "question": "What is python?",
-            "usrId": "1"
+            "question": "What is python?"
         }
         self.answer_post = {
             "answer": "pythonic language"

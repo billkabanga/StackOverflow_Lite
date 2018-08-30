@@ -23,6 +23,8 @@ class UserRegistration(Resource):
         args = self.reqparse.parse_args()
         response = Users(args['username'],args['email'],args['password'])
         if response:
+            name = args['username']
+            name = name.strip()
             if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.-]+$)",args['email']):
                 return make_response(jsonify({'message':'wrong email entry'}),406)
             query = "SELECT * FROM users WHERE email= '{}'".format(args['email'])
@@ -32,8 +34,8 @@ class UserRegistration(Resource):
             if len(args['password'])<8:
                 return make_response(jsonify({'message':'Short password. Password should not be less that 8 characters'}),406)
             if response.save():
-                return make_response(jsonify({'Welcome': '{}'.format(args['username']) }),201)
-        return make_response(jsonify({'Not registered': '{}'.format(args['username']) }),400)
+                return make_response(jsonify({'Welcome': '{}'.format(name) }),201)
+        return make_response(jsonify({'Not registered': '{}'.format(name) }),400)
 
 
 

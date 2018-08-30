@@ -72,8 +72,9 @@ class AnswerTest(BaseTest):
             json=dict(self.question_add))
             client.post(BASE_URL+'/questions', headers={'Authorization': 'Bearer '+ login_data['access_token']},\
             json=dict(self.another_question))
-            client.get(BASE_URL+'/questions/2')
-            response = client.post(BASE_URL+'/questions/2/answers',json=dict(self.answer_post))
+            client.get(BASE_URL+'/questions/1')
+            response = client.post(BASE_URL+'/questions/1/answers',headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.answer_post))
             self.assertEqual(response.status_code,201)
 
 

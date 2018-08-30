@@ -39,14 +39,17 @@ class QuestionsHandler(Resource):
             
 class SpecificQuestion(Resource):
     def get(self,qnid):
-        query = "SELECT * FROM questions WHERE qnid= '{}'".format(qnid)
+        query = "SELECT qnid,question FROM questions WHERE qnid= '{}'".format(qnid)
         question = db.get_data_by_id(query)
         if question:
             qn = {}
             qn['qnid'] = question[0]
             qn['question'] = question[1]
-            qn['usrId'] = question[2]
-            return  jsonify(qn)
+            
+            if qn:
+                query = "SELECT answer FROM answers WHERE qnid = '{}'".format(qnid)
+                answer = db.get_all_data(query)
+                return jsonify({'qn':qn},{'answer':answer})
         return make_response(jsonify({'Message':'Question does not exist'}),404)
 
     @jwt_required
@@ -63,6 +66,7 @@ class SpecificQuestion(Resource):
                 query = "DELETE FROM questions WHERE qnid= '{}'".format(qnid)
                 db.delete_data(query)
                 return make_response(jsonify({'message':'question deleted successfully'}),204)
+
         
 
         

@@ -1,5 +1,5 @@
 from flask import Flask
-from instance.config import DevelopmentConfig
+from config import DevelopmentConfig
 from api.views.userviews import user_blue_print
 from api.views.qnview import qn_blue_print
 from api.views.answerview import ans_blue_print

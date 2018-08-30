@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from instance.config import TestingConfig
+from config import TestingConfig
 
 
 class Dbcontroller(object):
@@ -27,7 +27,7 @@ class Dbcontroller(object):
         questions_table = "CREATE TABLE IF NOT EXISTS questions(qnid serial PRIMARY KEY, question varchar(100),\
          usrId integer, FOREIGN KEY(usrid) REFERENCES users(usrid))"
         answer_table = "CREATE TABLE IF NOT EXISTS answers(ansid serial PRIMARY KEY, answer varchar(100),\
-         qnId integer, usrId integer)"
+         qnId integer, usrId integer,authid integer,comment varchar(30))"
 
         self.cursor.execute(user_table)
         self.cursor.execute(questions_table)
