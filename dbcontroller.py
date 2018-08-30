@@ -8,7 +8,7 @@ class Dbcontroller(object):
         if os.getenv('APP_SETTING')== TestingConfig:
             dbname = "apptest_db"
         else:
-            dbname = "StackOverflow-lite"
+            dbname = "stackoverflow"
         try:
             self.connect = psycopg2.connect(
                 dbname=dbname ,user='postgres', host='localhost', password='focus2red' ,port='5432'
