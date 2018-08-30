@@ -33,10 +33,12 @@ Activate the virtual environment: `env/Scripts/Activate.bat`
 
 ## Installing dependencies.
 To install all the required extensions for project, use the following command: `pip install -r requirements.txt`
+Run the `psql` command interface and create two databases **apptest_db** and **StackOverflow-lite** using the `CREATE DATABASE {database name}` command.
+Application should now be up and ready to test.
 
 ## Running tests:
 **Testing the API endpoints.**
-Run the `run.py` file and test the endpoints in Postman as shown below:
+Run the `run.py` file using the `py run.py` command and test the endpoints in Postman as shown below:
 
 | url/endpoint                        | Verb          | Action                     | Parameters     
 | ----------------------------------- |:-------------:|  ------------------------- |----------------------|
@@ -47,6 +49,9 @@ Run the `run.py` file and test the endpoints in Postman as shown below:
 | /api/v1/questions                   | POST           | post a question          | question |
 | /api/v1/questions/<int:qnId>/answers        | POST           |answer specific question         | answer |
 | /api/v1/questions/<int:qnId>                   | DELETE          | delete a question  | <any number as id of question>|
+
+**Running the unit tests**
+To run the unit tests use the following command `pytest`
   
   
 
