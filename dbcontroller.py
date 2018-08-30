@@ -36,6 +36,16 @@ class Dbcontroller(object):
         self.cursor.execute(questions_table)
         self.cursor.execute(answer_table)
 
+    def drop_tables(self):
+        drop_user_table = "DROP TABLE users cascade"
+        drop_questions_table = "DROP TABLE questions cascade"
+        drop_answer_table = "DROP TABLE answers cascade"
+
+
+        self.cursor.execute(drop_user_table)
+        self.cursor.execute(drop_questions_table)
+        self.cursor.execute(drop_answer_table)
+
 
 
     def post_data(self,query):
