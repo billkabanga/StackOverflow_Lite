@@ -27,6 +27,8 @@ class UserRegistration(Resource):
             name = name.strip()
             if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.-]+$)",args['email']):
                 return make_response(jsonify({'message':'wrong email entry'}),406)
+            if not re.match(r"^[a-zA-Z0-9_.-]+$",args['username']):
+                return make_response(jsonify({'message':'Username should not have spaces between names'}),406)
             query = "SELECT * FROM users WHERE email= '{}'".format(args['email'])
             exist = db.get_data(query)
             if exist:

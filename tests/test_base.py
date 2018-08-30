@@ -14,7 +14,7 @@ class BaseTest(unittest.TestCase):
 
         self.user = {
             "usrid": "1",
-            "username": "Jude Inoo",
+            "username": "JudeInoo",
             "email": "jude@gmail.com",
             "password": "155555555"
         }
@@ -32,12 +32,12 @@ class BaseTest(unittest.TestCase):
             "comment": "accepted"
         }
         self.signup = {
-            "username": "Ambayo James",
+            "username": "AmbayoJames",
             "email": "ambayo@gmail.com",
             "password": "123456789"
         }
         self.login = {
-            "username": "Ambayo James",
+            "username": "AmbayoJames",
             "password": "123456789"
         }
 
@@ -49,6 +49,9 @@ class BaseTest(unittest.TestCase):
         }
         self.answer_post = {
             "answer": "pythonic language"
+        }
+        self.answer_post_empty = {
+            "answer": ""
         }
 
     def tearDown(self):

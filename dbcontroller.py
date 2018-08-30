@@ -5,6 +5,7 @@ from config import TestingConfig
 
 class Dbcontroller(object):
     def __init__(self):
+        dbname=""
         if os.getenv('APP_SETTING')== TestingConfig:
             dbname = "apptest_db"
         else:
@@ -15,6 +16,7 @@ class Dbcontroller(object):
             )
             self.connect.autocommit = True
             self.cursor = self.connect.cursor()
+
         except Exception as e:
             raise e
             
