@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/billkabanga/StackOverflow_Lite.svg?branch=API-feature)](https://travis-ci.org/billkabanga/StackOverflow_Lite)
+
 # StackOverflow-lite
 This is a  python version of StackOverflow. A platform for questions and answers.It allows users to post questions and answers respectively.Users can also read different questions and their answers.
 
