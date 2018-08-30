@@ -6,3 +6,4 @@ api/models/__pycache__/
 api/views/__pycache__/
 api/views/__pycache__/
 .pytest_cache
+api/__pycache__/

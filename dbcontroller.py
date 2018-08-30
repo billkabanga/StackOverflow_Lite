@@ -3,12 +3,9 @@ import os
 from instance.config import TestingConfig
 
 
-
-
 class Dbcontroller(object):
     def __init__(self):
-        
-        if os.getenv("APP_SETTING") == TestingConfig:
+        if os.getenv('APP_SETTING')== TestingConfig:
             dbname = "apptest_db"
         else:
             dbname = "StackOverflow-lite"
@@ -18,9 +15,9 @@ class Dbcontroller(object):
             )
             self.connect.autocommit = True
             self.cursor = self.connect.cursor()
-
-        except:
-            print ('Database not available')
+        except Exception as e:
+            raise e
+            
 
    
 
@@ -41,12 +38,9 @@ class Dbcontroller(object):
         drop_questions_table = "DROP TABLE questions cascade"
         drop_answer_table = "DROP TABLE answers cascade"
 
-
         self.cursor.execute(drop_user_table)
         self.cursor.execute(drop_questions_table)
         self.cursor.execute(drop_answer_table)
-
-
 
     def post_data(self,query):
         self.cursor.execute(query)
@@ -55,7 +49,6 @@ class Dbcontroller(object):
     def delete_data(self,query):
         self.cursor.execute(query)
         return True
-
 
     def get_data(self,query):
         self.cursor.execute(query)
