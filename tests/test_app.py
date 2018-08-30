@@ -77,6 +77,40 @@ class AnswerTest(BaseTest):
             json=dict(self.answer_post))
             self.assertEqual(response.status_code,201)
 
+    def test_existing_answer(self):
+        with self.client as client:
+            client.post(BASE_URL+'/auth/signup',json=dict(self.signup))
+            login_response = client.post(BASE_URL+'/auth/login',json=dict(self.login))
+            login_data = json.loads(login_response.data.decode())
+            client.post(BASE_URL+'/questions', headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.question_add))
+            client.post(BASE_URL+'/questions', headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.another_question))
+            client.get(BASE_URL+'/questions/1')
+            client.post(BASE_URL+'/questions/1/answers',headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.answer_post))
+            response = client.post(BASE_URL+'/questions/1/answers',headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.answer_post))
+            self.assertEqual(response.status_code,406)
+    
+    def test_empty_answer_posted(self):
+        with self.client as client:
+            client.post(BASE_URL+'/auth/signup',json=dict(self.signup))
+            login_response = client.post(BASE_URL+'/auth/login',json=dict(self.login))
+            login_data = json.loads(login_response.data.decode())
+            client.post(BASE_URL+'/questions', headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.question_add))
+            client.post(BASE_URL+'/questions', headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.another_question))
+            client.get(BASE_URL+'/questions/1')
+            response = client.post(BASE_URL+'/questions/1/answers',headers={'Authorization': 'Bearer '+ login_data['access_token']},\
+            json=dict(self.answer_post_empty))
+            self.assertEqual(response.status_code,406)
+
+
+
+
+
 
  
 
